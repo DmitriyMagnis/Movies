@@ -1,0 +1,20 @@
+import type { Action } from 'redux';
+
+type ActionHandlers<S> = {
+  [key: string]: (state: S, action: any) => S;
+};
+
+export interface ActionWithPayload<T> extends Action {
+  payload: T;
+}
+
+export const createReducer = <TState>(
+  initialState: TState,
+  handlers: ActionHandlers<TState>
+) => {
+  return (state: TState, action: Action) => {
+    state ??= initialState;
+    const handler = handlers[action.type];
+    return handler?.(state, action) ?? state;
+  };
+};

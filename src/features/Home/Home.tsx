@@ -8,14 +8,21 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-function About() {
+export const Home = () => {
   return (
     <Box sx={{ backgroundColor: 'background.paper', pt: 8, pb: 8 }}>
       <Container maxWidth="sm">
         <Typography variant="h4" align="center" paddingTop="10px">
-          About
+          Welcome to Movie DB!
         </Typography>
-
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align="center"
+          paddingTop="10px"
+        >
+          Explore movies today with us!
+        </Typography>
         <Stack
           sx={{ pt: 4, pb: 4 }}
           direction="row"
@@ -32,9 +39,7 @@ function About() {
           </Button>
         </Stack>
       </Container>
-      <Divider />;
+      <Divider />
     </Box>
   );
-}
-
-export default About;
+};

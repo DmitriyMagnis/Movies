@@ -1,3 +1,8 @@
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -6,19 +11,28 @@ import App from './App';
 import { Provider } from 'react-redux';
 import About from './features/About/About';
 import Movies from './features/Movies/Movies';
-import './index.css';
+
+import { Home } from './features/Home/Home';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
+
+const AppEntryPoint = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Provider store={store}>
-        <App />
-      </Provider>
-    ),
+    element: <AppEntryPoint />,
     children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
       {
         path: '/about',
         element: <About />,
