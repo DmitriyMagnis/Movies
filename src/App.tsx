@@ -30,6 +30,7 @@ const HeaderLink = ({ children, to }: { to: string; children: ReactNode }) => {
 const defaultTheme = createTheme({
   palette: {
     primary: teal,
+
     secondary: {
       main: '#96000f',
     },
