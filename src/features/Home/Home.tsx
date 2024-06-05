@@ -6,9 +6,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext';
 
 export const Home = () => {
+  const { user } = useContext(AuthContext);
+
+  const loggedIn = user.name !== 'anonimous';
+  const greeting = loggedIn
+    ? `${user.name}, explore movies today with us!`
+    : 'Explore movies today with us!';
+
   return (
     <Box sx={{ backgroundColor: 'background.paper', pt: 8, pb: 8 }}>
       <Container maxWidth="sm">
@@ -21,7 +30,7 @@ export const Home = () => {
           align="center"
           paddingTop="10px"
         >
-          Explore movies today with us!
+          {greeting}
         </Typography>
         <Stack
           sx={{ pt: 4, pb: 4 }}

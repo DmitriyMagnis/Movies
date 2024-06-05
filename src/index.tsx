@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import About from './features/About/About';
 import Movies from './features/Movies/Movies';
 
+import { ErrorBoundary } from './ErrorBoundary';
 import { Home } from './features/Home/Home';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
@@ -19,7 +20,9 @@ import store from './store';
 const AppEntryPoint = () => {
   return (
     <Provider store={store}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Provider>
   );
 };

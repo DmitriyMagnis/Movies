@@ -1,11 +1,14 @@
 import { Link as RouterLink } from 'react-router-dom';
 
+import { Favorite } from '@mui/icons-material';
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  IconButton,
+  Tooltip,
   Typography,
 } from '@mui/material';
 
@@ -15,6 +18,7 @@ interface MovieCardProps {
   popularity: number;
   id: number;
   image?: string;
+  enableUserActions?: boolean;
 }
 
 function MovieCard({
@@ -23,6 +27,7 @@ function MovieCard({
   popularity,
   overview,
   image = '/movie.png',
+  enableUserActions,
 }: MovieCardProps) {
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -30,7 +35,6 @@ function MovieCard({
 
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant="h5" gutterBottom>
-          {/* <Link to={`/movies/${id}`}>{title}</Link> */}
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -44,6 +48,13 @@ function MovieCard({
         <Button component={RouterLink} to={`/movies/${id}`} color="secondary">
           Details
         </Button>
+        {enableUserActions && (
+          <Tooltip title="Add to favorites">
+            <IconButton>
+              <Favorite />
+            </IconButton>
+          </Tooltip>
+        )}
       </CardActions>
     </Card>
   );
