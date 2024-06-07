@@ -1,6 +1,6 @@
 import { Component, type PropsWithChildren } from 'react';
 
-export class ErrorBoundary extends Component<PropsWithChildren<any>> {
+export class ErrorBoundary extends Component<PropsWithChildren<unknown>> {
   state: { hasError: boolean };
   constructor(props: { children: JSX.Element }) {
     super(props);

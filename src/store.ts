@@ -1,7 +1,7 @@
-import { composeWithDevTools } from '@redux-devtools/extension'
-import { applyMiddleware, createStore, type UnknownAction } from 'redux'
-import { ThunkAction, thunk } from 'redux-thunk'
-import rootReducers from './reducers/index'
+import { composeWithDevTools } from '@redux-devtools/extension';
+import { applyMiddleware, createStore, type UnknownAction } from 'redux';
+import { ThunkAction, thunk } from 'redux-thunk';
+import rootReducers from './reducers/index';
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
 
@@ -10,7 +10,7 @@ const store = createStore(rootReducers, composedEnhancer);
 export type AppDispatch = typeof store.dispatch;
 
 export type AppThunk<ReturnType> = ThunkAction<
-ReturnType,
+  ReturnType,
   RootState,
   undefined,
   UnknownAction
