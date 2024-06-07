@@ -4,6 +4,7 @@ interface Options {
   root?: Element | Document | null;
   rootMargin?: string;
   threshold?: number | number[];
+  onIntersect?: () => void;
 }
 
 type HookReturnType = [MutableRefObject<null>, IntersectionObserverEntry?];
@@ -11,20 +12,32 @@ type HookReturnType = [MutableRefObject<null>, IntersectionObserverEntry?];
 export const useIntersectionObserver = (
   options: Options = {}
 ): HookReturnType => {
-  const { threshold = 1, root = null, rootMargin = '0px' } = options;
+  const {
+    threshold = 1,
+    root = null,
+    rootMargin = '0px',
+    onIntersect,
+  } = options;
   const targetRef = useRef(null);
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
-  const callbackFn = (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries;
-    setEntry(entry);
-  };
   useEffect(() => {
-    const observer = new IntersectionObserver(callbackFn, {
-      threshold,
-      root,
-      rootMargin,
-    });
+    const observer = new IntersectionObserver(
+      (entries: IntersectionObserverEntry[]) => {
+        const [entry] = entries;
+
+        if (entry.isIntersecting) {
+          onIntersect?.();
+        }
+
+        setEntry(entry);
+      },
+      {
+        threshold,
+        root,
+        rootMargin,
+      }
+    );
     const currentRef = targetRef.current;
     if (currentRef) {
       observer.observe(currentRef);
@@ -34,7 +47,7 @@ export const useIntersectionObserver = (
         observer.unobserve(currentRef);
       }
     };
-  }, [threshold, root, rootMargin]);
+  }, [threshold, root, rootMargin, onIntersect]);
 
   return [targetRef, entry];
 };

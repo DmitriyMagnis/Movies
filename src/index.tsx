@@ -3,17 +3,15 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { LinearProgress } from '@mui/material';
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-
-import { Provider } from 'react-redux';
-import About from './features/About/About';
-// import Movies from './features/Movies/Movies';
-
-import { LinearProgress } from '@mui/material';
 import { ErrorBoundary } from './ErrorBoundary';
+import About from './features/About/About';
+import { Extra } from './features/Extra/Extra';
 import { Home } from './features/Home/Home';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
@@ -41,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />,
+      },
+      {
+        path: '/extra',
+        element: <Extra />,
       },
       {
         path: '/movies',

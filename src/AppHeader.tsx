@@ -18,6 +18,7 @@ export const AppHeader = ({ onLogin, onLogout }: AuthHeaderProps) => {
           <nav>
             <HeaderLink to="/">Home</HeaderLink>
             <HeaderLink to="/movies">Movies</HeaderLink>
+            <HeaderLink to="/extra">Extra</HeaderLink>
             <HeaderLink to="/about">About</HeaderLink>
           </nav>
         </Box>

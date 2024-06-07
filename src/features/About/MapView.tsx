@@ -11,6 +11,7 @@ export const MapView = () => {
   const [popupContainer, setPopupContainer] = useState<HTMLElement | null>(
     null
   );
+
   useEffect(() => {
     if (mapRef.current === null) {
       const map = createMapWidget(containerRef.current!);
