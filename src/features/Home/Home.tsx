@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   Box,
   Button,
@@ -6,16 +7,13 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { AuthContext } from '../../AuthContext';
 
 export const Home = () => {
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useAuth0();
 
-  const loggedIn = user.name !== 'anonimous';
-  const greeting = loggedIn
-    ? `${user.name}, explore movies today with us!`
+  const greeting = isAuthenticated
+    ? `${user?.name}, explore movies today with us!`
     : 'Explore movies today with us!';
 
   return (

@@ -1,7 +1,7 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
-import { AuthContext } from '../../AuthContext';
 import { useIntersectionObserver } from '../../hooks/useIntercectionObserver';
 import {
   useGetConfigurationQuery,
@@ -26,9 +26,8 @@ const Movies = () => {
   const movies = data?.results ?? [];
   const hasMorePages = data?.hasMorePages;
 
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useAuth0();
 
-  const loggedIn = user.name !== 'anonimous';
   const formatImageUrl = (path?: string) => {
     return path && configuration
       ? `${configuration?.images.base_url}w780${path}`
@@ -44,9 +43,9 @@ const Movies = () => {
 
   const handleAddToFavorite = useCallback(
     (id: number) => {
-      alert(`Not ${(user.name, id)}`);
+      alert(`Not ${(user?.name, id)}`);
     },
-    [user.name]
+    [user?.name]
   );
   return (
     <Grid container spacing={2} sx={{ flexWrap: 'nowrap' }} maxWidth="lg">
@@ -78,7 +77,7 @@ const Movies = () => {
                   overview={m.overview}
                   popularity={m.popularity}
                   image={formatImageUrl(m.backdrop_path)}
-                  enableUserActions={loggedIn}
+                  enableUserActions={isAuthenticated}
                   onAddFavorite={handleAddToFavorite}
                 />
               </Grid>

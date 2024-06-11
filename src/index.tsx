@@ -10,19 +10,25 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import { ErrorBoundary } from './ErrorBoundary';
+import AuthCallback from './auth/AuthCallback';
+import { AuthenticatedGuard } from './auth/AuthenticatedGuard';
+import { CustomAuthProvider } from './auth/CustomAuthProvider';
 import About from './features/About/About';
 import { Extra } from './features/Extra/Extra';
 import { Home } from './features/Home/Home';
+import { Profile } from './features/Profile/Profile';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 const AppEntryPoint = () => {
   return (
-    <Provider store={store}>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </Provider>
+    <CustomAuthProvider>
+      <Provider store={store}>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </Provider>
+    </CustomAuthProvider>
   );
 };
 const Movies = lazy(() => import('./features/Movies/Movies'));
@@ -41,8 +47,16 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: '/profile',
+        element: <AuthenticatedGuard component={Profile} />,
+      },
+      {
         path: '/extra',
         element: <Extra />,
+      },
+      {
+        path: '/callback',
+        element: <AuthCallback />,
       },
       {
         path: '/movies',
